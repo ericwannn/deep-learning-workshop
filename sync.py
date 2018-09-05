@@ -44,6 +44,13 @@ def download_file(url, file_name, directory):
         shell=True
         )
 
+def make_directory(dir_name, directory):
+    execute_command(
+        "mkdir {}".format(dir_name),
+        cwd=directory,
+        shell=True
+        )
+
 def sync_papers():
     current_path = os.getcwd()
     system = platform.system().lower()
