@@ -1,41 +1,50 @@
 # coding=utf-8
+"""Parse the README.md file and extract the directory and file structure. 
+
+TODO: Search for urls on MS Academic/Google scholar if missing.
+
+Author: Eric Wan
+Email:  ericwannn@foxmail.com
+Date:   2018-09-06
+"""
 from __future__ import print_function
 import os
-import platform
 import shlex
 import datetime
 import subprocess
 import time
 from collections import namedtuple
 
-def execute_command(cmdstring, cwd=None, timeout=None, shell=False):
+_paper    = "[paper]"
+_tutorial = "[tutorial]" 
+
+def execute_command(cmd, cwd=None, timeout=None, shell=False):
     """Execute a shell command. Encapsulate subprocess.Popen. Support timeout and stdout/stderr
 
-    @Parameter: 
-        cmdstring:  command
+    Parameter: 
+        cmd:        command
         cwd:        change the directory to cwd if it's set
         timeout:    in second
         shell:      if the command is executed by shell
-
-    @Return:        returncode
-    @Raises:        Exception: timeout
+    Raises:        Exception: timeout
+    Return:        returncode
     """
-    cmdstring_list = cmdstring if shell else shlex.split(cmdstring)
+    cmd_list = cmd if shell else shlex.split(cmd)
     if timeout:
         end_time = datetime.datetime.now() + datetime.timedelta(seconds=timeout)
     
-    sub = subprocess.Popen(
-        cmdstring_list, cwd=cwd, stdin=subprocess.PIPE,
+    subp = subprocess.Popen(
+        cmd_list, cwd=cwd, stdin=subprocess.PIPE,
         shell=shell, bufsize=4097
         )
     
-    while sub.poll() is not None:
+    while subp.poll() is not None:
         time.sleep(0.1)
         if timeout:
             if end_time <= datetime.datetime.now():
-                raise Exception("Timeout：{}".format(cmdstring))
+                raise Exception("Timeout：{}".format(cmd))
             
-    return str(sub.returncode)
+    return subp.returncode
 
 def download_file(url, file_name, directory):
     execute_command(
@@ -53,15 +62,14 @@ def make_directory(dir_name, directory):
 
 def sync_papers():
     root_path = os.getcwd()
-    system = platform.system().lower()
-    assert system in ["windows", "linux", "darwin"]
     src_list = []
     src = namedtuple("src", ["file_name", "file_type", "directory", "url"])
+    start = False
     with open("README.md") as f:
+        for _ in range(40): next(f) # Skip instructions part
         for line in f.readlines():
             sline = line.strip().split()
-            if not len(sline): 
-                continue
+            if not len(sline):continue
             if sline[0] == "##": # Subjects i.e. computer_vision
                 h2 = "_".join(sline[1:])
                 if h2 not in os.listdir(root_path):
@@ -74,18 +82,18 @@ def sync_papers():
                 current_path = os.path.join(current_path, h3)
             elif sline[0] == "####": # Title of the resource 
                 file_type = sline[1]
-                file_name = "_".join(sline[2:]) + ".pdf"
+                if file_type == _paper: file_name = "_".join(sline[2:]) + ".pdf"
             elif sline[0] == "*" and sline[1].startswith("[url]"):
                 url  = line[8:-2]
                 src_list.append(src(file_name, file_type, current_path, url))
     for file_name, file_type, directory, url in src_list:
-        if file_type == "[paper]":
+        if file_type == _paper:
             if file_name not in os.listdir(directory):
                 download_file(
                     url, file_name, directory
                     )
             else:
-                print("The file {} already exists!".format(file_name))
+                print("The file {} already exists!\n".format(file_name))
 
 
 if __name__=="__main__":

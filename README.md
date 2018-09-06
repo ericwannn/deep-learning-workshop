@@ -3,13 +3,13 @@
 Here are some awesome papers/tutorials on machine/deep learning and related fields, along with some notes and codes if applied.  
 You are always welcomed to share your own thoughts here with us !
 
-I roughly categorise the resources into paper and tutorial (perhaps more in the future) and tag the resourses with either of these two. The original pdf of papers are stored locally only, whereas a scirpt, `sync.py`, was created to download them using `wget`. 
+I roughly categorise the resources into paper and tutorial (perhaps more in the future) and tag the them with either of these two. The original pdf of papers are stored locally only, whereas a scirpt, `sync.py`, was created to download them using `wget`. 
 
 **Usage**:
 
 To run this script, simply do a `python sync.py` which downloads the papers (urls of resources with tag `[paper]` in their titles) to the according directory. 
 
-Please make sure that you have `Python` and `wget` installed and configured properly. The script should run properly on Windows, macOS and most Linux distributions.
+Please make sure that you have `Python` and `wget` installed and configured properly. 
 
 **PR**:
 
@@ -36,6 +36,8 @@ For example, a typical organisation of resources would be sth as follows.
 
 * [url](https://www.kaggle.com/c/home-credit-default-risk/discussion/64821)
 ```
+
+---
 
 ## natural language processing
 
