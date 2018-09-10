@@ -41,19 +41,19 @@ For example, a typical organisation of resources would be sth as follows.
 
 ## natural language processing
 
+### general
+
+#### [paper] Natural Language Processing (Almost) from Scratch
+
+* [url](http://jmlr.org/papers/volume12/collobert11a/collobert11a.pdf)
+
 ### text classification
 
 #### [paper] Convolutional Neural Networks for Sentence Classification
 
 * [url](http://aclweb.org/anthology/D/D14/D14-1181.pdf)
 * [notes](/natural_language_processing/text_classification/Convolutional_Neural_Networks_for_Sentence_Classification.md)
-* codes
-
-#### [paper] Document Modeling with Gated Recurrent Neural Network
-
-* [url](https://www.cs.cmu.edu/~ark/EMNLP-2015/proceedings/EMNLP/pdf/EMNLP167.pdf)
-* notes
-* codes
+* [codes](https://github.com/dennybritz/cnn-text-classification-tf/blob/master/text_cnn.py)
 
 #### [paper] Hierarchical Attention Networks for Document Classification
 
@@ -61,4 +61,14 @@ For example, a typical organisation of resources would be sth as follows.
 * notes
 * codes
 
+### sentiment classification
+
+#### [paper] Document Modeling with Gated Recurrent Neural Network for Sentiment lassification
+
+* [url](https://www.cs.cmu.edu/~ark/EMNLP-2015/proceedings/EMNLP/pdf/EMNLP167.pdf)
+* notes
+* codes
+
 ## computer vision
+
+### object detection

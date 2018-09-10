@@ -64,7 +64,6 @@ def sync_papers():
     root_path = os.getcwd()
     src_list = []
     src = namedtuple("src", ["file_name", "file_type", "directory", "url"])
-    start = False
     with open("README.md") as f:
         for _ in range(40): next(f) # Skip instructions part
         for line in f.readlines():

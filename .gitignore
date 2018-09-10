@@ -109,3 +109,6 @@ venv.bak/
 # pdf
 .pdf
 
+# mac
+.DS_Store
+
